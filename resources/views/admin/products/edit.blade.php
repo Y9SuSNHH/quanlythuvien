@@ -7,12 +7,14 @@
         </div>
 
         <div class="card-body">
-            <form method="POST" action="{{ route("admin.products.update", [$product->id]) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route("admin.products.update", [$product->id]) }}"
+                  enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="form-group">
                     <label class="required" for="name">{{ trans('cruds.product.fields.name') }}</label>
-                    <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $product->name) }}" required>
+                    <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name"
+                           id="name" value="{{ old('name', $product->name) }}" required>
                     @if($errors->has('name'))
                         <div class="invalid-feedback">
                             {{ $errors->first('name') }}
@@ -22,7 +24,9 @@
                 </div>
                 <div class="form-group">
                     <label for="description">{{ trans('cruds.product.fields.description') }}</label>
-                    <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $product->description) }}</textarea>
+                    <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}"
+                              name="description"
+                              id="description">{{ old('description', $product->description) }}</textarea>
                     @if($errors->has('description'))
                         <div class="invalid-feedback">
                             {{ $errors->first('description') }}
@@ -30,25 +34,30 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.product.fields.description_helper') }}</span>
                 </div>
-{{--                <div class="form-group">--}}
-{{--                    <label class="required" for="price">{{ trans('cruds.product.fields.price') }}</label>--}}
-{{--                    <input class="form-control {{ $errors->has('price') ? 'is-invalid' : '' }}" type="number" name="price" id="price" value="{{ old('price', $product->price) }}" step="0.01" required>--}}
-{{--                    @if($errors->has('price'))--}}
-{{--                        <div class="invalid-feedback">--}}
-{{--                            {{ $errors->first('price') }}--}}
-{{--                        </div>--}}
-{{--                    @endif--}}
-{{--                    <span class="help-block">{{ trans('cruds.product.fields.price_helper') }}</span>--}}
-{{--                </div>--}}
+                <div class="form-group">
+                    <label class="required" for="quantity">{{ trans('cruds.product.fields.quantity') }}</label>
+                    <input class="form-control {{ $errors->has('quantity') ? 'is-invalid' : '' }}" type="number"
+                           name="quantity" id="quantity" value="{{ old('quantity', $product->quantity) }}" required>
+                    @if($errors->has('quantity'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('quantity') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('cruds.product.fields.price_helper') }}</span>
+                </div>
                 <div class="form-group">
                     <label for="categories">{{ trans('cruds.product.fields.category') }}</label>
                     <div style="padding-bottom: 4px">
-                        <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
-                        <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                        <span class="btn btn-info btn-xs select-all"
+                              style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                        <span class="btn btn-info btn-xs deselect-all"
+                              style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
                     </div>
-                    <select class="form-control select2 {{ $errors->has('categories') ? 'is-invalid' : '' }}" name="categories[]" id="categories" multiple>
+                    <select class="form-control select2 {{ $errors->has('categories') ? 'is-invalid' : '' }}"
+                            name="categories[]" id="categories" multiple>
                         @foreach($categories as $id => $category)
-                            <option value="{{ $id }}" {{ (in_array($id, old('categories', [])) || $product->categories->contains($id)) ? 'selected' : '' }}>{{ $category }}</option>
+                            <option
+                                value="{{ $id }}" {{ (in_array($id, old('categories', [])) || $product->categories->contains($id)) ? 'selected' : '' }}>{{ $category }}</option>
                         @endforeach
                     </select>
                     @if($errors->has('categories'))
@@ -58,27 +67,28 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.product.fields.category_helper') }}</span>
                 </div>
-{{--                <div class="form-group">--}}
-{{--                    <label for="tags">{{ trans('cruds.product.fields.tag') }}</label>--}}
-{{--                    <div style="padding-bottom: 4px">--}}
-{{--                        <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>--}}
-{{--                        <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>--}}
-{{--                    </div>--}}
-{{--                    <select class="form-control select2 {{ $errors->has('tags') ? 'is-invalid' : '' }}" name="tags[]" id="tags" multiple>--}}
-{{--                        @foreach($tags as $id => $tag)--}}
-{{--                            <option value="{{ $id }}" {{ (in_array($id, old('tags', [])) || $product->tags->contains($id)) ? 'selected' : '' }}>{{ $tag }}</option>--}}
-{{--                        @endforeach--}}
-{{--                    </select>--}}
-{{--                    @if($errors->has('tags'))--}}
-{{--                        <div class="invalid-feedback">--}}
-{{--                            {{ $errors->first('tags') }}--}}
-{{--                        </div>--}}
-{{--                    @endif--}}
-{{--                    <span class="help-block">{{ trans('cruds.product.fields.tag_helper') }}</span>--}}
-{{--                </div>--}}
+                {{--                <div class="form-group">--}}
+                {{--                    <label for="tags">{{ trans('cruds.product.fields.tag') }}</label>--}}
+                {{--                    <div style="padding-bottom: 4px">--}}
+                {{--                        <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>--}}
+                {{--                        <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>--}}
+                {{--                    </div>--}}
+                {{--                    <select class="form-control select2 {{ $errors->has('tags') ? 'is-invalid' : '' }}" name="tags[]" id="tags" multiple>--}}
+                {{--                        @foreach($tags as $id => $tag)--}}
+                {{--                            <option value="{{ $id }}" {{ (in_array($id, old('tags', [])) || $product->tags->contains($id)) ? 'selected' : '' }}>{{ $tag }}</option>--}}
+                {{--                        @endforeach--}}
+                {{--                    </select>--}}
+                {{--                    @if($errors->has('tags'))--}}
+                {{--                        <div class="invalid-feedback">--}}
+                {{--                            {{ $errors->first('tags') }}--}}
+                {{--                        </div>--}}
+                {{--                    @endif--}}
+                {{--                    <span class="help-block">{{ trans('cruds.product.fields.tag_helper') }}</span>--}}
+                {{--                </div>--}}
                 <div class="form-group">
                     <label for="photo">{{ trans('cruds.product.fields.photo') }}</label>
-                    <div class="needsclick dropzone {{ $errors->has('photo') ? 'is-invalid' : '' }}" id="photo-dropzone">
+                    <div class="needsclick dropzone {{ $errors->has('photo') ? 'is-invalid' : '' }}"
+                         id="photo-dropzone">
                     </div>
                     @if($errors->has('photo'))
                         <div class="invalid-feedback">
@@ -95,8 +105,6 @@
             </form>
         </div>
     </div>
-
-
 
 @endsection
 

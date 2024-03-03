@@ -161,12 +161,16 @@ class PermissionsTableSeeder extends Seeder
                 'title' => 'order_create',
             ],
             [
+                'id'    => 37,
+                'title' => 'order_show',
+            ],
+            [
                 'id'    => 38,
                 'title' => 'cart_delete',
             ],
             [
                 'id'    => 39,
-                'title' => 'cart_acesss',
+                'title' => 'cart_access',
             ],
             [
                 'id'    => 40,

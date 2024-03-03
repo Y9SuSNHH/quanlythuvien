@@ -96,6 +96,6 @@ Route::group([
 ], static function () {
     Route::get('/', [Controllers\CartController::class, 'index'])->name('index');
     Route::post('/{product}', [Controllers\CartController::class, 'store'])->name('store');
-    Route::delete('/{product}', [Controllers\CartController::class, 'destroy'])->name('destroy');
+    Route::delete('/{key}', [Controllers\CartController::class, 'destroy'])->name('destroy');
 });
 

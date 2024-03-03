@@ -1,17 +1,8 @@
 @extends('layouts.admin')
 @section('content')
-    @can('product_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.products.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.product.title_singular') }}
-                </a>
-            </div>
-        </div>
-    @endcan
     <div class="card">
         <div class="card-header">
-            {{ trans('cruds.product.title_singular') }} {{ trans('global.list') }}
+            {{ trans('cruds.order.title_singular') }} {{ trans('global.list') }}
         </div>
 
         <div class="card-body">
@@ -23,25 +14,19 @@
 
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.id') }}
+                            {{ trans('cruds.order.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.name') }}
+                            {{ trans('cruds.order.fields.created_user') }}
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.description') }}
+                            {{ trans('cruds.product.title_singular') }}
                         </th>
-                        {{--                        <th>--}}
-                        {{--                            {{ trans('cruds.product.fields.price') }}--}}
-                        {{--                        </th>--}}
                         <th>
-                            {{ trans('cruds.product.fields.category') }}
+                            {{ trans('cruds.order.fields.status') }}
                         </th>
-                        {{--                        <th>--}}
-                        {{--                            {{ trans('cruds.product.fields.tag') }}--}}
-                        {{--                        </th>--}}
                         <th>
-                            {{ trans('cruds.product.fields.photo') }}
+                            {{ trans('cruds.order.fields.created_at') }}
                         </th>
                         <th>
                             &nbsp;
@@ -52,26 +37,51 @@
                     @foreach($orders as $key => $order)
                         <tr data-entry-id="{{ $order->id }}">
                             <td>
-                                {{ $key + 1 }}
+
                             </td>
                             <td>
-                                {{ $order->product ?? '' }}
+                                {{$key + 1}}
                             </td>
                             <td>
-                                {{ $order->description ?? '' }}
+                                {{ $order->createdUser?->name ?? '' }}
                             </td>
                             <td>
+                                {{ $order->products->count() }}
+                            </td>
+                            <td>
+                                {{ $order->status_name }}
+                            </td>
+                            <td>
+                                {{ $order->created_at }}
+                            </td>
+                            <td>
+                                @can('order_show')
+                                    <a class="btn btn-xs btn-primary"
+                                       href="{{ route('orders.show', $order->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
+                                @can('order_management_access')
+                                    <a class="btn btn-xs btn-info"
+                                       href="{{ route('orders.edit', $order->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
+
                                 @can('order_delete')
-                                    <form action="{{ route('orders.destroy', $order->id) }}" method="POST"
-                                          onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
-                                          style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger"
-                                               value="{{ trans('global.delete') }}">
-                                    </form>
+                                    @if($order->can_delete)
+                                        <form action="{{ route('orders.destroy', $order->id) }}" method="POST"
+                                              onsubmit="return confirm('{{ trans('global.areYouSure') }}');"
+                                              style="display: inline-block;">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <input type="submit" class="btn btn-xs btn-danger"
+                                                   value="{{ trans('global.delete') }}">
+                                        </form>
+                                    @endif
                                 @endcan
                             </td>
+
                         </tr>
                     @endforeach
                     </tbody>

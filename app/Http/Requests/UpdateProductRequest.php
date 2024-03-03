@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Requests;
@@ -18,23 +19,23 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
+            'name'         => [
                 'string',
                 'required',
             ],
-//            'price' => [
-//                'required',
-//            ],
+            'quantity'     => [
+                'required',
+            ],
             'categories.*' => [
                 'integer',
             ],
-            'categories' => [
+            'categories'   => [
                 'array',
             ],
-            'tags.*' => [
+            'tags.*'       => [
                 'integer',
             ],
-            'tags' => [
+            'tags'         => [
                 'array',
             ],
         ];

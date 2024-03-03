@@ -16,9 +16,8 @@ return new class extends Migration {
             $table->foreign('product_id', 'orders_fk_1')->references('id')->on('products');
             $table->unsignedBigInteger('created_user_id');
             $table->foreign('created_user_id', 'orders_fk_2')->references('id')->on('users');
-            $table->morphs('confirmable');
+            $table->nullableMorphs('confirmable');
 
-            $table->bigInteger('quantity');
             $table->timestamps();
             $table->softDeletes();
         });

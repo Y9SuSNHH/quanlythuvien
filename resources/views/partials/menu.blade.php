@@ -23,7 +23,7 @@
                 {{ trans('cruds.product.title') }}
             </a>
         </li>
-        @can('order_access')
+        @can('cart_access')
         <li class="c-sidebar-nav-item">
             <a href="{{ route("carts.index") }}" class="c-sidebar-nav-link">
                 <i class="fa-fw fas fa-shopping-cart c-sidebar-nav-icon">

@@ -31,9 +31,9 @@
                         <th>
                             {{ trans('cruds.product.fields.description') }}
                         </th>
-{{--                        <th>--}}
-{{--                            {{ trans('cruds.product.fields.price') }}--}}
-{{--                        </th>--}}
+                        <th>
+                            {{ trans('cruds.product.fields.quantity') }}
+                        </th>
                         <th>
                             {{ trans('cruds.product.fields.category') }}
                         </th>
@@ -63,9 +63,9 @@
                             <td>
                                 {{ $product->description ?? '' }}
                             </td>
-{{--                            <td>--}}
-{{--                                {{ $product->price ?? '' }}--}}
-{{--                            </td>--}}
+                            <td>
+                                {{ $product->quantity ?? '' }}
+                            </td>
                             <td>
                                 @foreach($product->categories as $key => $item)
                                     <span class="badge badge-info">{{ $item->name }}</span>
