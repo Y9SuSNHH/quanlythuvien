@@ -26,6 +26,140 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.0/css/perfect-scrollbar.min.css"
           rel="stylesheet"/>
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet"/>
+    <style>
+        .ck-editor__editable,
+        textarea {
+            min-height: 150px;
+        }
+
+        .datatable {
+            width: 100% !important;
+        }
+
+        table.dataTable tbody td.select-checkbox::before,
+        table.dataTable tbody td.select-checkbox::after,
+        table.dataTable tbody th.select-checkbox::before,
+        table.dataTable tbody th.select-checkbox::after {
+            top: 50%;
+        }
+
+        .dataTables_length,
+        .dataTables_filter,
+        .dt-buttons {
+            margin-bottom: 0.333em;
+            margin-top: .2rem;
+        }
+
+        .dataTables_filter {
+            margin-right: .2rem;
+        }
+
+        .dt-buttons .btn {
+            margin-left: 0.333em;
+            border-radius: 0;
+        }
+
+        .table.datatable {
+            box-sizing: border-box;
+            border-collapse: collapse;
+        }
+
+        table.dataTable thead th {
+            border-bottom: 2px solid #c8ced3;
+        }
+
+        .dataTables_wrapper.no-footer .dataTables_scrollBody {
+            border-bottom: 1px solid #c8ced3;
+        }
+
+        .select2 {
+            max-width: 100%;
+            width: 100% !important;
+        }
+
+        .select2-selection__rendered {
+            padding-bottom: 5px !important;
+        }
+
+        .has-error .invalid-feedback {
+            display: block !important;
+        }
+
+        .btn-info,
+        .badge-info {
+            color: white;
+        }
+
+        table.dataTable thead .sorting,
+        table.dataTable thead .sorting_asc,
+        table.dataTable thead .sorting_desc {
+            background-image: none;
+        }
+
+        .sidebar .nav-item {
+            cursor: pointer;
+        }
+
+        .btn-default {
+            color: #23282c;
+            background-color: #f0f3f5;
+            border-color: #f0f3f5;
+        }
+
+        .btn-default.focus,
+        .btn-default:focus {
+            box-shadow: 0 0 0 .2rem rgba(209, 213, 215, .5);
+        }
+
+        .btn-default:hover {
+            color: #23282c;
+            background-color: #d9e1e6;
+            border-color: #d1dbe1;
+        }
+
+        .btn-group-xs > .btn,
+        .btn-xs {
+            padding: 1px 5px;
+            font-size: 12px;
+            line-height: 1.5;
+            border-radius: 3px;
+        }
+
+        .searchable-title {
+            font-weight: bold;
+        }
+        .searchable-fields {
+            padding-left:5px;
+        }
+        .searchable-link {
+            padding:0 5px 0 5px;
+        }
+        .searchable-link:hover   {
+            cursor: pointer;
+            background: #eaeaea;
+        }
+        .select2-results__option {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+
+        .form-group .required::after {
+            content: " *";
+            color: red;
+        }
+
+        .form-check.is-invalid ~ .invalid-feedback {
+            display: block;
+        }
+
+        .c-sidebar-brand .c-sidebar-brand-full:hover {
+            color: inherit;
+        }
+
+        .custom-select.form-control-sm {
+            padding: 0.25rem 1.5rem;
+        }
+    </style>
     @yield('styles')
 </head>
 
@@ -120,6 +254,82 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
 <script src="{{ asset('js/main.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        window._token = $('meta[name="csrf-token"]').attr('content')
+
+        moment.updateLocale('en', {
+            week: {dow: 1} // Monday is the first day of the week
+        })
+
+        $('.date').datetimepicker({
+            format: 'YYYY-MM-DD',
+            locale: 'en',
+            icons: {
+                up: 'fas fa-chevron-up',
+                down: 'fas fa-chevron-down',
+                previous: 'fas fa-chevron-left',
+                next: 'fas fa-chevron-right'
+            }
+        })
+
+        $('.datetime').datetimepicker({
+            format: 'YYYY-MM-DD HH:mm:ss',
+            locale: 'en',
+            sideBySide: true,
+            icons: {
+                up: 'fas fa-chevron-up',
+                down: 'fas fa-chevron-down',
+                previous: 'fas fa-chevron-left',
+                next: 'fas fa-chevron-right'
+            }
+        })
+
+        $('.timepicker').datetimepicker({
+            format: 'HH:mm:ss',
+            icons: {
+                up: 'fas fa-chevron-up',
+                down: 'fas fa-chevron-down',
+                previous: 'fas fa-chevron-left',
+                next: 'fas fa-chevron-right'
+            }
+        })
+
+        $('.select-all').click(function () {
+            let $select2 = $(this).parent().siblings('.select2')
+            $select2.find('option').prop('selected', 'selected')
+            $select2.trigger('change')
+        })
+        $('.deselect-all').click(function () {
+            let $select2 = $(this).parent().siblings('.select2')
+            $select2.find('option').prop('selected', '')
+            $select2.trigger('change')
+        })
+
+        $('.select2').select2()
+
+        $('.treeview').each(function () {
+            var shouldExpand = false
+            $(this).find('li').each(function () {
+                if ($(this).hasClass('active')) {
+                    shouldExpand = true
+                }
+            })
+            if (shouldExpand) {
+                $(this).addClass('active')
+            }
+        })
+
+        $('.c-header-toggler.mfs-3.d-md-down-none').click(function (e) {
+            $('#sidebar').toggleClass('c-sidebar-lg-show');
+
+            setTimeout(function () {
+                $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
+            }, 400);
+        });
+
+    })
+</script>
 <script>
     $(function () {
         let copyButtonTrans = '{{ trans('global.datatables.copy') }}'
@@ -250,6 +460,7 @@
 
 </script>
 @yield('scripts')
+
 </body>
 
 </html>
