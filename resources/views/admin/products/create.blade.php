@@ -29,16 +29,16 @@
                     @endif
                     <span class="help-block">{{ trans('cruds.product.fields.description_helper') }}</span>
                 </div>
-{{--                <div class="form-group">--}}
-{{--                    <label class="required" for="price">{{ trans('cruds.product.fields.price') }}</label>--}}
-{{--                    <input class="form-control {{ $errors->has('price') ? 'is-invalid' : '' }}" type="number" name="price" id="price" value="{{ old('price', '') }}" step="0.01" required>--}}
-{{--                    @if($errors->has('price'))--}}
-{{--                        <div class="invalid-feedback">--}}
-{{--                            {{ $errors->first('price') }}--}}
-{{--                        </div>--}}
-{{--                    @endif--}}
-{{--                    <span class="help-block">{{ trans('cruds.product.fields.price_helper') }}</span>--}}
-{{--                </div>--}}
+                <div class="form-group">
+                    <label class="required" for="quantity">{{ trans('Số lượng') }}</label>
+                    <input class="form-control {{ $errors->has('quantity') ? 'is-invalid' : '' }}" type="number" name="quantity" id="quantity" value="{{ old('price', '') }}" step="1" required>
+                    @if($errors->has('quantity'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('quantity') }}
+                        </div>
+                    @endif
+                    <span class="help-block">{{ trans('') }}</span>
+                </div>
                 <div class="form-group">
                     <label for="categories">{{ trans('cruds.product.fields.category') }}</label>
                     <div style="padding-bottom: 4px">
