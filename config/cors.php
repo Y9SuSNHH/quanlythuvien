@@ -17,7 +17,11 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
-    'allowed_methods' => ['*'],
+    'allowed_methods' => [
+        'https://doan-quanlythuvien.up.railway.app',
+        'http://doan-quanlythuvien.up.railway.app',
+        '*',
+    ],
 
     'allowed_origins' => ['*'],
 
