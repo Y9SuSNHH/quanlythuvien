@@ -10,6 +10,7 @@ final class OrderStatusConstant extends AbstractConstant
     public const COMPLETED = 2;
     public const SHIPPED   = 3;
     public const OVER_RENT = 4;
+    public const CANCELED = 4;
 
     public static function getLangByValue($value): string
     {
@@ -19,6 +20,7 @@ final class OrderStatusConstant extends AbstractConstant
             self::COMPLETED => 'Đã trả sách',
             self::OVER_RENT => 'Quá hạn trả sách',
             self::SHIPPED => 'Đã nhận sách',
+            self::CANCELED => 'Từ chối',
             default => '',
         };
     }
