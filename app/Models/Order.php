@@ -34,14 +34,15 @@ final class Order extends Model
         'confirmable_type',
         'confirmable_id',
         'status',
-        'no_rent_date',
+        'rent_no_date',
+        'note',
         'updated_at',
         'deleted_at',
     ];
 
     protected $casts = [
         'status'       => 'integer',
-        'no_rent_date' => 'integer',
+        'rent_no_date' => 'integer',
     ];
 
     protected function serializeDate(DateTimeInterface $date): string
@@ -67,10 +68,10 @@ final class Order extends Model
     public function status(): Attribute
     {
         $attributes = $this->attributes;
-        $status = $attributes['status'];
+        $status = $attributes['status'] ?? OrderStatusConstant::NEW;
 
-        if ($status === OrderStatusConstant::SHIPPED) {
-            $reitToDate = Carbon::make($attributes['updated_at'])->addDays($attributes['rent_no_date'])?->toDateString();
+        if ($status === OrderStatusConstant::SHIPPED && $attributes['updated_at']) {
+            $reitToDate = Carbon::make($attributes['updated_at'])->addDays($attributes['rent_no_date'] ?? 0)->toDateString();
 
             $now = now()->toDateString();
 

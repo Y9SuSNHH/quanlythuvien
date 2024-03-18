@@ -2,7 +2,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            {{ trans('global.show') }} {{ trans('cruds.cart.title') }}
+            {{ trans('global.show') }} {{ trans('cruds.order.title_singular') }}
             <a class="btn btn-default" href="{{ route('orders.index') }}">
                 {{ trans('global.back_to_list') }}
             </a>
@@ -12,27 +12,44 @@
                 <div class="form-group">
                     @can('order_management_access')
                         @if($order->can_completed)
-                            <form action="{{ route('orders.update', $order->id) }}" method="POST"
-                                  style="display: inline-block;">
+                            <form action="{{ route('orders.update', $order->id) }}" method="POST">
                                 @method('PUT')
                                 @csrf
                                 <input type="hidden" name="status"
                                        value="{{\App\Constants\OrderStatusConstant::COMPLETED}}">
-                                <input type="submit" class="btn btn-success" value="Đã trả hàng">
-                            </form>
-                        @endif
-                        @if($order->can_shipped)
-                            <form action="{{ route('orders.update', $order->id) }}" method="POST" class="form-inline">
-                                @method('PUT')
-                                @csrf
                                 <div class="form-group">
                                     <label class="required"
                                            for="no_rent_date">{{ trans('cruds.order.fields.no_rent_date') }}</label>
-                                    <input type="number" class="form-control mx-sm-3" required step="1"
+                                    <input type="number" class="form-control" required step="1"
                                            id="no_rent_date" name="no_rent_date">
-                                    <input type="hidden" name="status"
-                                           value="{{\App\Constants\OrderStatusConstant::SHIPPED}}">
-                                    <input type="submit" class="btn btn-info" value="Đã nhận hàng">
+                                </div>
+                                <div class="form-group">
+                                    <label for="note">Ghi chú</label>
+                                    <textarea class="form-control" name="note" id="note">{{$order->note}}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-info" value="Đã trả sách">
+                                </div>
+                            </form>
+                        @endif
+                        @if($order->can_shipped)
+                            <form action="{{ route('orders.update', $order->id) }}" method="POST">
+                                @method('PUT')
+                                @csrf
+                                <input type="hidden" name="status"
+                                       value="{{\App\Constants\OrderStatusConstant::SHIPPED}}">
+                                <div class="form-group">
+                                    <label class="required"
+                                           for="no_rent_date">{{ trans('cruds.order.fields.no_rent_date') }}</label>
+                                    <input type="number" class="form-control" required step="1"
+                                           id="no_rent_date" name="no_rent_date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="note">Ghi chú</label>
+                                    <textarea class="form-control" name="note" id="note">{{$order->note}}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-info" value="Đã mượn sách">
                                 </div>
                             </form>
                         @endif
@@ -75,14 +92,14 @@
                                 {{ $product->description }}
                             </td>
                         </tr>
-                        <tr>
-                            <th>
-                                {{ trans('cruds.product.fields.quantity') }}
-                            </th>
-                            <td>
-                                {{ $product->quantity }}
-                            </td>
-                        </tr>
+                        {{--                        <tr>--}}
+                        {{--                            <th>--}}
+                        {{--                                {{ trans('cruds.product.fields.quantity') }}--}}
+                        {{--                            </th>--}}
+                        {{--                            <td>--}}
+                        {{--                                {{ $product->quantity }}--}}
+                        {{--                            </td>--}}
+                        {{--                        </tr>--}}
                         <tr>
                             <th>
                                 {{ trans('cruds.product.fields.category') }}

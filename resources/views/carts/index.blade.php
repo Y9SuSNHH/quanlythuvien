@@ -18,7 +18,7 @@
                 <form action="{{ route('orders.store') }}" method="POST" class="mb-2">
                     @method('POST')
                     @csrf
-                    <input type="submit" class="btn btn btn-success" value="Đặt hàng">
+                    <input type="submit" class="btn btn btn-success" value="Đặt sách">
                 </form>
             @endcan
             <div class="table-responsive">

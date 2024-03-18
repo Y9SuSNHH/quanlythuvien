@@ -23,7 +23,7 @@ final class OrderController extends Controller
         if (Gate::denies('order_management_access')) {
             $query->where('created_user_id', auth()->user()->id);
         }
-        $orders = $query->get();
+        $orders = $query->get()->sortBy('status');
 
         return view('orders.index', compact('orders'));
     }
@@ -72,7 +72,6 @@ final class OrderController extends Controller
     public function update(Order $order, Request $request): \Illuminate\Http\RedirectResponse
     {
         $status     = $request->get('status');
-        $noRentDate = $request->get('no_rent_date', 1);
 
         if ($status) {
             if ($status == OrderStatusConstant::SHIPPED) {
@@ -95,7 +94,7 @@ final class OrderController extends Controller
             }
         }
 
-        $order->fill($request->only(['status', 'no_rent_date']))->save();
+        $order->fill($request->only(['status', 'rent_no_date', 'note']))->save();
 
         return redirect()->route('orders.index')->with('order-products-completed');
     }

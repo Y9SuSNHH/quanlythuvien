@@ -142,8 +142,8 @@ return [
         ],
     ],
     'cart'              => [
-        'title'          => 'Danh sách giỏ hàng',
-        'title_singular' => 'Giỏ hàng',
+        'title'          => 'Danh sách giỏ sách',
+        'title_singular' => 'Giỏ sách',
     ],
     'order'             => [
 //        'title'          => 'Products',

@@ -2,13 +2,13 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            {{ trans('global.show') }} {{ trans('cruds.cart.title') }}
+            {{ trans('global.show') }} {{ trans('cruds.order.title_singular') }}
         </div>
         <div class="card-body">
             <div class="form-group">
                 <div class="form-group">
                     <a class="btn btn-default" href="{{ route('orders.index') }}">
-                        {{ trans('global.back_to_list') }}
+                        {{ trans('global.back_to_list') }} quản lý
                     </a>
                 </div>
             </div>
@@ -48,14 +48,14 @@
                                 {{ $product->description }}
                             </td>
                         </tr>
-                        <tr>
-                            <th>
-                                {{ trans('cruds.product.fields.quantity') }}
-                            </th>
-                            <td>
-                                {{ $product->quantity }}
-                            </td>
-                        </tr>
+{{--                        <tr>--}}
+{{--                            <th>--}}
+{{--                                {{ trans('cruds.product.fields.quantity') }}--}}
+{{--                            </th>--}}
+{{--                            <td>--}}
+{{--                                {{ $product->quantity }}--}}
+{{--                            </td>--}}
+{{--                        </tr>--}}
                         <tr>
                             <th>
                                 {{ trans('cruds.product.fields.category') }}
