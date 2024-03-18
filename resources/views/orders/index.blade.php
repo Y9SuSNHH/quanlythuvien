@@ -23,6 +23,9 @@
                             {{ trans('cruds.product.title_singular') }}
                         </th>
                         <th>
+                            {{ trans('cruds.order.fields.no_rent_date') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.order.fields.status') }}
                         </th>
                         <th>
@@ -47,6 +50,9 @@
                             </td>
                             <td>
                                 {{ $order->products->count() }}
+                            </td>
+                            <td>
+                                {{ $order->rent_no_date }}
                             </td>
                             <td>
                                 {{ $order->status_name }}
@@ -76,7 +82,7 @@
                                             <input type="hidden" name="_method" value="DELETE">
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                             <input type="submit" class="btn btn-xs btn-danger"
-                                                   value="{{ trans('global.delete') }}">
+                                                   value="{{ app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('order_management_access') ? 'Từ chối yêu cầu' : 'Xóa' }}">
                                         </form>
                                     @endif
                                 @endcan

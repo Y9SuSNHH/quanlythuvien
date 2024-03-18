@@ -12,6 +12,10 @@
                     </a>
                 </div>
             </div>
+            <div class="form-group">
+                <span>Số ngày mượn: {{$order->rent_no_date}}</span>
+                <div>Ghi chú: {{$order->note}}</div>
+            </div>
         </div>
     </div>
     @foreach($order->products as $product)
@@ -48,14 +52,14 @@
                                 {{ $product->description }}
                             </td>
                         </tr>
-{{--                        <tr>--}}
-{{--                            <th>--}}
-{{--                                {{ trans('cruds.product.fields.quantity') }}--}}
-{{--                            </th>--}}
-{{--                            <td>--}}
-{{--                                {{ $product->quantity }}--}}
-{{--                            </td>--}}
-{{--                        </tr>--}}
+                        {{--                        <tr>--}}
+                        {{--                            <th>--}}
+                        {{--                                {{ trans('cruds.product.fields.quantity') }}--}}
+                        {{--                            </th>--}}
+                        {{--                            <td>--}}
+                        {{--                                {{ $product->quantity }}--}}
+                        {{--                            </td>--}}
+                        {{--                        </tr>--}}
                         <tr>
                             <th>
                                 {{ trans('cruds.product.fields.category') }}

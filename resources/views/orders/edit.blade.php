@@ -4,7 +4,7 @@
         <div class="card-header">
             {{ trans('global.show') }} {{ trans('cruds.order.title_singular') }}
             <a class="btn btn-default" href="{{ route('orders.index') }}">
-                {{ trans('global.back_to_list') }}
+                {{ trans('global.back_to_list') }} {{ trans('cruds.order.title') }}
             </a>
         </div>
         <div class="card-body">
@@ -49,7 +49,7 @@
                                     <textarea class="form-control" name="note" id="note">{{$order->note}}</textarea>
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" class="btn btn-info" value="Đã mượn sách">
+                                    <input type="submit" class="btn btn-info" value="Chấp nhận yêu cầu mượn">
                                 </div>
                             </form>
                         @endif
