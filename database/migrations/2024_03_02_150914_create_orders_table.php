@@ -17,7 +17,10 @@ return new class extends Migration {
             $table->unsignedBigInteger('created_user_id');
             $table->foreign('created_user_id', 'orders_fk_2')->references('id')->on('users');
             $table->nullableMorphs('confirmable');
+            $table->tinyInteger('status');
+            $table->tinyInteger('rent_no_date');
 
+            $table->tinyInteger('rent_to_date');
             $table->timestamps();
             $table->softDeletes();
         });

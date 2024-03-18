@@ -71,7 +71,9 @@ final class OrderController extends Controller
 
     public function update(Order $order, Request $request): \Illuminate\Http\RedirectResponse
     {
-        $status = $request->get('status');
+        $status     = $request->get('status');
+        $noRentDate = $request->get('no_rent_date', 1);
+
         if ($status) {
             if ($status == OrderStatusConstant::SHIPPED) {
                 if ($order->products->where('quantity', 0)->first()) {
@@ -92,7 +94,8 @@ final class OrderController extends Controller
                 }
             }
         }
-        $order->fill($request->only(['status']))->save();
+
+        $order->fill($request->only(['status', 'no_rent_date']))->save();
 
         return redirect()->route('orders.index')->with('order-products-completed');
     }

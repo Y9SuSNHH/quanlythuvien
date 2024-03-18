@@ -30,7 +30,7 @@
                     <span class="help-block">{{ trans('cruds.product.fields.description_helper') }}</span>
                 </div>
                 <div class="form-group">
-                    <label class="required" for="quantity">{{ trans('Số lượng') }}</label>
+                    <label class="required" for="quantity">{{ trans('cruds.product.fields.quantity') }}</label>
                     <input class="form-control {{ $errors->has('quantity') ? 'is-invalid' : '' }}" type="number" name="quantity" id="quantity" value="{{ old('price', '') }}" step="1" required>
                     @if($errors->has('quantity'))
                         <div class="invalid-feedback">

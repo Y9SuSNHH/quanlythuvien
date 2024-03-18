@@ -3,13 +3,13 @@
     <div class="card">
         <div class="card-header">
             {{ trans('global.show') }} {{ trans('cruds.cart.title') }}
+            <a class="btn btn-default" href="{{ route('orders.index') }}">
+                {{ trans('global.back_to_list') }}
+            </a>
         </div>
         <div class="card-body">
             <div class="form-group">
                 <div class="form-group">
-                    <a class="btn btn-default" href="{{ route('orders.index') }}">
-                        {{ trans('global.back_to_list') }}
-                    </a>
                     @can('order_management_access')
                         @if($order->can_completed)
                             <form action="{{ route('orders.update', $order->id) }}" method="POST"
@@ -22,13 +22,18 @@
                             </form>
                         @endif
                         @if($order->can_shipped)
-                            <form action="{{ route('orders.update', $order->id) }}" method="POST"
-                                  style="display: inline-block;">
+                            <form action="{{ route('orders.update', $order->id) }}" method="POST" class="form-inline">
                                 @method('PUT')
                                 @csrf
-                                <input type="hidden" name="status"
-                                       value="{{\App\Constants\OrderStatusConstant::SHIPPED}}">
-                                <input type="submit" class="btn btn-info" value="Đã nhận hàng">
+                                <div class="form-group">
+                                    <label class="required"
+                                           for="no_rent_date">{{ trans('cruds.order.fields.no_rent_date') }}</label>
+                                    <input type="number" class="form-control mx-sm-3" required step="1"
+                                           id="no_rent_date" name="no_rent_date">
+                                    <input type="hidden" name="status"
+                                           value="{{\App\Constants\OrderStatusConstant::SHIPPED}}">
+                                    <input type="submit" class="btn btn-info" value="Đã nhận hàng">
+                                </div>
                             </form>
                         @endif
                     @endcan
